@@ -406,14 +406,20 @@ class Cli {
         // TODO: After calling the findVehicleToTow method, you will need to return to avoid instantly calling the performActions method again since findVehicleToTow is asynchronous.
         // TODO: add statements to perform the wheelie action only if the selected vehicle is a motorbike
         else if (answers.action === 'Tow') {
-          if (this.vehicles.find(vehicle => vehicle.vin === this.selectedVehicleVin) instanceof Truck) {
-            this.findVehicleToTow(this.vehicles.find(vehicle => vehicle.vin === this.selectedVehicleVin) as Truck);
+          const currentVehicle = this.vehicles.find(vehicle => vehicle.vin === this.selectedVehicleVin);
+          if (currentVehicle instanceof Truck) {
+            this.findVehicleToTow(currentVehicle);
             return;
+          } else {
+            console.log(`This vehicle can not tow`);
           }
         }
         else if (answers.action === 'Wheelie') {
-          if (this.vehicles.find(vehicle => vehicle.vin === this.selectedVehicleVin) instanceof Motorbike) {
-            (this.vehicles.find(vehicle => vehicle.vin === this.selectedVehicleVin) as Motorbike).wheelie();
+          const currentVehicle = this.vehicles.find(vehicle => vehicle.vin === this.selectedVehicleVin);
+          if (currentVehicle instanceof Motorbike) {
+            currentVehicle.wheelie();
+          } else {
+            console.log(`This vehicle can not perform a wheelie`);
           }
         }
         else if (answers.action === 'Select or create another vehicle') {
